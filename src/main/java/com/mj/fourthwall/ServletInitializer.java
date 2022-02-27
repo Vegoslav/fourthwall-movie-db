@@ -1,5 +1,6 @@
 package com.mj.fourthwall;
 
+import com.mj.fourthwall.MovieDbApplication;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
 
