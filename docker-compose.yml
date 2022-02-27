@@ -1,0 +1,25 @@
+services:
+  web-fe:
+    image: vegoslavus/fourthwall-movie-db
+    command: java -jar /movie-db.jar
+    deploy:
+      replicas: 5
+    ports:
+      - target: 8080
+        published: 8080
+    networks:
+      - movie-net
+    volumes:
+      - type: volume
+        source: movie-vol
+        target: /code
+  redis:
+    image: "redis:alpine"
+    networks:
+      movie-net:
+
+networks:
+  movie-net:
+
+volumes:
+  movie-vol:
