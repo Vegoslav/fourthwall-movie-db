@@ -19,5 +19,6 @@ public class MovieDetailsResultTO {
     String country;
     String language;
     String metascore;
+    Boolean found;
 
 }

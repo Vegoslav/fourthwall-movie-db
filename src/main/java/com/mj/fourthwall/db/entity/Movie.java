@@ -15,7 +15,8 @@ public class Movie {
     @Id
     private Long id;
     private String title;
-    private Integer rate;
+    private Double rate;
+    private Integer votes;
     private Integer hours;
     private Integer minutes;
 }

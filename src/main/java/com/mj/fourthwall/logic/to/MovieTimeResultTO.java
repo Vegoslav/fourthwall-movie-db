@@ -7,4 +7,5 @@ public class MovieTimeResultTO {
 
     Integer hour;
     Integer minutes;
+    Boolean found;
 }
