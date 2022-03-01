@@ -20,7 +20,7 @@ public class RateMovieLogicTest {
     @BeforeEach
     public void beforeEach(){
 
-        movie = new Movie(15L, "Fast and Furious", 4.7, 10, 13, 30);
+        movie = new Movie(15L, "id", "Fast and Furious", 4.7, 10, 13, 30);
 
         movieRepository = Mockito.mock(MovieRepository.class);
         Mockito.when(movieRepository.findById(15L)).thenReturn(Optional.of(movie));

@@ -1,5 +1,6 @@
 package com.mj.fourthwall.controller;
 
+import com.mj.fourthwall.DBInitializer;
 import com.mj.fourthwall.MovieDbApplication;
 import com.mj.fourthwall.controller.to.RateMovieRequestTO;
 import com.mj.fourthwall.logic.IMovieDetails;
@@ -23,6 +24,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
@@ -32,7 +34,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @ExtendWith(MockitoExtension.class)
-@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.MOCK, classes = MovieDbApplication.class)
+@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.MOCK, classes = CustomerController.class)
 @AutoConfigureMockMvc
 @EnableAutoConfiguration
 @MockitoSettings(strictness = Strictness.LENIENT)
@@ -41,13 +43,11 @@ class CustomerControllerTest {
     @Autowired
     private MockMvc mvc;
 
-    @Mock
+    @MockBean
     private IMovieTime movieTime;
-
-    @Mock
+    @MockBean
     private IRateMovie rateMovie;
-
-    @Mock
+    @MockBean
     private IMovieDetails movieDetails;
 
     @Autowired
@@ -70,15 +70,18 @@ class CustomerControllerTest {
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(JsonUtil.toJson(request))
                 .accept(MediaType.APPLICATION_JSON))
-                .andExpect(status().isOk());
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("rated", Matchers.is(true)));
 
     }
 
     @Test
     public void testMovieDetails() throws Exception {
         mvc.perform(get("/movie/15")
-                        .contentType(MediaType.APPLICATION_JSON))
-                .andExpect(status().isOk());
+                .contentType(MediaType.APPLICATION_JSON)
+                .accept(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("title", Matchers.is("Fast and Furious")));
     }
 
     @Test

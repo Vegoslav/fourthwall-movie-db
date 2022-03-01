@@ -11,6 +11,7 @@ import lombok.Value;
 public class MovieDetailsResponseTO {
 
     Long id;
+    String omdbId;
     String title;
     String year;
     String genre;
@@ -21,7 +22,7 @@ public class MovieDetailsResponseTO {
     String language;
     String metascore;
 
-    @JsonPOJOBuilder
+    @JsonPOJOBuilder(withPrefix = "")
     public static final class MovieDetailsResponseTOBuilder{
 
     }

@@ -1,6 +1,6 @@
 services:
   web-fe:
-    image: vegoslavus/fourthwall-movie-db
+    image: movie-db
     command: java -jar /movie-db.jar
     deploy:
       replicas: 5

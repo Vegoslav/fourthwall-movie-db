@@ -22,18 +22,23 @@ public class RateMovieLogic implements IRateMovie {
         Optional<Movie> byId = movieRepository.findById(paramsTO.getId());
 
         if (byId.isPresent() && paramsTO.getRate() <= 5 && paramsTO.getRate() >= 1) {
-            Movie movie = byId.get();
-
-            Double rate = (movie.getRate() * movie.getVotes() + paramsTO.getRate()) / (movie.getVotes() + 1);
-
-            movie.setRate(rate);
-            movie.setVotes(movie.getVotes() + 1);
-            movieRepository.save(movie);
-            resultTO = new RateMovieResultTO(true);
+            resultTO = rate(paramsTO, byId.get());
         } else {
             resultTO = new RateMovieResultTO(false);
         }
 
+        return resultTO;
+    }
+
+    private RateMovieResultTO rate(RateMovieParamsTO paramsTO, Movie movie) {
+        RateMovieResultTO resultTO;
+
+        Double rate = (movie.getRate() * movie.getVotes() + paramsTO.getRate()) / (movie.getVotes() + 1);
+
+        movie.setRate(rate);
+        movie.setVotes(movie.getVotes() + 1);
+        movieRepository.save(movie);
+        resultTO = new RateMovieResultTO(true);
         return resultTO;
     }
 }

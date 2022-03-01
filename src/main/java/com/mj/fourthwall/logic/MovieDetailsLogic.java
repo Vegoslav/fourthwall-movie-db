@@ -4,6 +4,7 @@ import com.mj.fourthwall.db.entity.Movie;
 import com.mj.fourthwall.db.repository.MovieRepository;
 import com.mj.fourthwall.logic.to.MovieDetailsParamsTO;
 import com.mj.fourthwall.logic.to.MovieDetailsResultTO;
+import com.mj.fourthwall.webservice.OMDBAPIService;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Component;
 
@@ -14,6 +15,7 @@ import java.util.Optional;
 public class MovieDetailsLogic implements IMovieDetails {
 
     private final MovieRepository movieRepository;
+    private final OMDBAPIService omdbapiService;
 
     @Override
     public MovieDetailsResultTO movieDetails(MovieDetailsParamsTO paramsTO) {
