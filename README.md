@@ -12,3 +12,11 @@ I have decided to used Docker with Docker-compose to provide an easy to setup so
 
 In order to get the OpenMovie DB Rest API working,
 please set an OMDBKEY environment variable.
+
+For an out of the box experience, please
+ - set the environment variable
+ - run mvn clean install and confirm all tests are passing
+ - run docker build -t movie-db .
+ - run docker-compose up -d
+
+All the movie id's in the initialized DB match the OMDB movie ids.
