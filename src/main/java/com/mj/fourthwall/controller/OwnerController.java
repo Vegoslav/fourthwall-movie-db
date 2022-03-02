@@ -18,13 +18,13 @@ public class OwnerController {
     private IUpdateMovie updateMovie;
 
     @PostMapping("/manage/movie/{id}/update")
-    public MovieUpdateResponseTO movieUpdate(@RequestBody MovieUpdateRequestTO request, @PathVariable Long id) {
+    public MovieUpdateResponseTO movieUpdate(@RequestBody MovieUpdateRequestTO request, @PathVariable String id) {
         MovieUpdateResponseTO movieUpdateResponseTO = updateMovie(request, id);
 
         return movieUpdateResponseTO;
     }
 
-    private MovieUpdateResponseTO updateMovie(MovieUpdateRequestTO request, Long id) {
+    private MovieUpdateResponseTO updateMovie(MovieUpdateRequestTO request, String id) {
         MovieUpdateParamsTO movieUpdateParamsTO = new MovieUpdateParamsTO(id, request.getHour(), request.getMinutes());
         MovieUpdateResultTO movieUpdateResultTO = updateMovie.updateMovie(movieUpdateParamsTO);
 

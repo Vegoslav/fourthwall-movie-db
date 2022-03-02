@@ -5,7 +5,7 @@ import lombok.Value;
 @Value
 public class MovieUpdateParamsTO {
 
-    Long id;
+    String id;
     Integer hours;
     Integer minutes;
 }

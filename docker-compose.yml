@@ -1,25 +1,15 @@
 services:
-  web-fe:
-    image: movie-db
-    command: java -jar /movie-db.jar
-    deploy:
-      replicas: 5
+  redis-service:
+    image: "redis:latest"
+    hostname: redis
     ports:
-      - target: 8080
-        published: 8080
-    networks:
-      - movie-net
-    volumes:
-      - type: volume
-        source: movie-vol
-        target: /code
-  redis:
-    image: "redis:alpine"
-    networks:
-      movie-net:
-
-networks:
-  movie-net:
-
-volumes:
-  movie-vol:
+      - "6379:6379"
+  java-service:
+    image: movie-db
+    command: java -jar -Dspring.profiles.active=develop /movie-db.jar
+    environment:
+        - OMDBKEY=${OMDBKEY}
+    ports:
+      - "8080:8080"
+    links:
+      - redis-server

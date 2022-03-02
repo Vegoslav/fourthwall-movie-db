@@ -1,10 +1,12 @@
 package com.mj.fourthwall.logic;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.mj.fourthwall.db.entity.Movie;
 import com.mj.fourthwall.db.repository.MovieRepository;
 import com.mj.fourthwall.logic.to.MovieDetailsParamsTO;
 import com.mj.fourthwall.logic.to.MovieDetailsResultTO;
 import com.mj.fourthwall.webservice.OMDBAPIService;
+import com.mj.fourthwall.webservice.to.OMDBMovieTO;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Component;
 
@@ -23,9 +25,26 @@ public class MovieDetailsLogic implements IMovieDetails {
         Optional<Movie> byId = movieRepository.findById(paramsTO.getId());
 
         if (byId.isPresent()) {
+
+            OMDBMovieTO movieDetails = OMDBMovieTO.builder().build();
+            try {
+                movieDetails = omdbapiService.getMovieDetails(paramsTO.getId());
+            } catch (JsonProcessingException e) {
+                e.printStackTrace();
+            }
+
             resultTO = MovieDetailsResultTO.builder()
                     .id(byId.get().getId())
                     .title(byId.get().getTitle())
+                    .actors(movieDetails.getActors())
+                    .country(movieDetails.getCountry())
+                    .genre(movieDetails.getGenre())
+                    .language(movieDetails.getLanguage())
+                    .metascore(movieDetails.getMetascore())
+                    .rated(movieDetails.getRated())
+                    .released(movieDetails.getReleased())
+                    .year(movieDetails.getYear())
+                    .rate(byId.get().getRate())
                     .found(true)
                     .build();
         } else {

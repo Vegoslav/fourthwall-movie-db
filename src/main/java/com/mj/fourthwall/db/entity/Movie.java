@@ -13,8 +13,7 @@ import org.springframework.data.redis.core.RedisHash;
 public class Movie {
 
     @Id
-    private Long id;
-    private String omdbId;
+    private String id;
     private String title;
     private Double rate;
     private Integer votes;

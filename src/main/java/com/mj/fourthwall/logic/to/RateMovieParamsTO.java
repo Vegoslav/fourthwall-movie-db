@@ -6,6 +6,6 @@ import lombok.Value;
 
 @Value
 public class RateMovieParamsTO {
-    Long id;
+    String id;
     Integer rate;
 }

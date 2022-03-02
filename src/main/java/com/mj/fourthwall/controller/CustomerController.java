@@ -20,27 +20,27 @@ public class CustomerController {
     private IRateMovie rateMovie;
 
     @GetMapping("/movie/{id}/time")
-    public MovieTimeResponseTO movieTime(@PathVariable Long id) {
+    public MovieTimeResponseTO movieTime(@PathVariable String id) {
         MovieTimeResponseTO movieTimeResponseTO = checkMovieTime(id);
 
         return movieTimeResponseTO;
     }
 
     @GetMapping("/movie/{id}")
-    public MovieDetailsResponseTO movieDetails(@PathVariable Long id) {
+    public MovieDetailsResponseTO movieDetails(@PathVariable String id) {
         MovieDetailsResponseTO movieDetailsResponseTO = checkMovieDetails(id);
 
         return movieDetailsResponseTO;
     }
 
     @PostMapping("/movie/{id}/rate")
-    public RateMovieResponseTO movieRate(@RequestBody RateMovieRequestTO request, @PathVariable Long id) {
+    public RateMovieResponseTO movieRate(@RequestBody RateMovieRequestTO request, @PathVariable String id) {
         RateMovieResponseTO rateMovieResponseTO = rateMovie(request, id);
 
         return rateMovieResponseTO;
     }
 
-    private MovieTimeResponseTO checkMovieTime(Long id) {
+    private MovieTimeResponseTO checkMovieTime(String id) {
         MovieTimeParamsTO movieTimeParamsTO = new MovieTimeParamsTO(id);
         MovieTimeResultTO movieTimeResultTO = movieTime.movieTime(movieTimeParamsTO);
 
@@ -48,7 +48,7 @@ public class CustomerController {
         return movieTimeResponseTO;
     }
 
-    private MovieDetailsResponseTO checkMovieDetails(Long id) {
+    private MovieDetailsResponseTO checkMovieDetails(String id) {
         MovieDetailsParamsTO movieDetailsParamsTO = new MovieDetailsParamsTO(id);
         MovieDetailsResultTO movieDetailsResultTO = movieDetails.movieDetails(movieDetailsParamsTO);
 
@@ -68,11 +68,12 @@ public class CustomerController {
                 .rated(movieDetailsResultTO.getRated())
                 .released(movieDetailsResultTO.getReleased())
                 .year(movieDetailsResultTO.getYear())
+                .rate(movieDetailsResultTO.getRate())
                 .build();
         return movieDetailsResponseTO;
     }
 
-    private RateMovieResponseTO rateMovie(RateMovieRequestTO request, Long id) {
+    private RateMovieResponseTO rateMovie(RateMovieRequestTO request, String id) {
         RateMovieParamsTO rateMovieParamsTO = new RateMovieParamsTO(id, request.getRate());
         RateMovieResultTO rateMovieResultTO = rateMovie.rateMovie(rateMovieParamsTO);
 

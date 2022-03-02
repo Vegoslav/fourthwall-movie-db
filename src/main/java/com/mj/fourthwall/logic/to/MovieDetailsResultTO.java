@@ -9,7 +9,7 @@ import lombok.Value;
 @Builder
 public class MovieDetailsResultTO {
 
-    Long id;
+    String id;
     String title;
     String year;
     String genre;
@@ -20,5 +20,6 @@ public class MovieDetailsResultTO {
     String language;
     String metascore;
     Boolean found;
+    Double rate;
 
 }

@@ -5,5 +5,5 @@ import lombok.Value;
 @Value
 public class MovieDetailsParamsTO {
 
-    Long id;
+    String id;
 }

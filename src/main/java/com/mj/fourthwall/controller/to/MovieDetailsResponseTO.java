@@ -10,8 +10,7 @@ import lombok.Value;
 @JsonDeserialize(builder = MovieDetailsResponseTO.MovieDetailsResponseTOBuilder.class)
 public class MovieDetailsResponseTO {
 
-    Long id;
-    String omdbId;
+    String id;
     String title;
     String year;
     String genre;
@@ -21,6 +20,7 @@ public class MovieDetailsResponseTO {
     String country;
     String language;
     String metascore;
+    Double rate;
 
     @JsonPOJOBuilder(withPrefix = "")
     public static final class MovieDetailsResponseTOBuilder{

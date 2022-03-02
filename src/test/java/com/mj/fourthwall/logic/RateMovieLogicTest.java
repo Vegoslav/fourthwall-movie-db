@@ -20,10 +20,10 @@ public class RateMovieLogicTest {
     @BeforeEach
     public void beforeEach(){
 
-        movie = new Movie(15L, "id", "Fast and Furious", 4.7, 10, 13, 30);
+        movie = new Movie( "id", "Fast and Furious", 4.7, 10, 13, 30);
 
         movieRepository = Mockito.mock(MovieRepository.class);
-        Mockito.when(movieRepository.findById(15L)).thenReturn(Optional.of(movie));
+        Mockito.when(movieRepository.findById("id")).thenReturn(Optional.of(movie));
 
         rateMovieLogic = new RateMovieLogic(movieRepository);
 
@@ -31,7 +31,7 @@ public class RateMovieLogicTest {
 
     @Test
     public void testRateAMovie(){
-        RateMovieParamsTO paramsTO = new RateMovieParamsTO(15L, 5);
+        RateMovieParamsTO paramsTO = new RateMovieParamsTO("id", 5);
 
         RateMovieResultTO resultTO = rateMovieLogic.rateMovie(paramsTO);
 
@@ -42,7 +42,7 @@ public class RateMovieLogicTest {
 
     @Test
     public void testMovieNotExists(){
-        RateMovieParamsTO paramsTO = new RateMovieParamsTO(16L, 5);
+        RateMovieParamsTO paramsTO = new RateMovieParamsTO("id2", 5);
 
         RateMovieResultTO resultTO = rateMovieLogic.rateMovie(paramsTO);
 
@@ -51,7 +51,7 @@ public class RateMovieLogicTest {
 
     @Test
     public void testWrongRate(){
-        RateMovieParamsTO paramsTO = new RateMovieParamsTO(15L, 7);
+        RateMovieParamsTO paramsTO = new RateMovieParamsTO("id", 7);
 
         RateMovieResultTO resultTO = rateMovieLogic.rateMovie(paramsTO);
 

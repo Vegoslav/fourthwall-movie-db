@@ -59,14 +59,14 @@ class CustomerControllerTest {
     {
         Mockito.when(movieTime.movieTime(Mockito.any())).thenReturn(new MovieTimeResultTO(15, 30, true));
         Mockito.when(rateMovie.rateMovie(Mockito.any())).thenReturn(new RateMovieResultTO(true));
-        Mockito.when(movieDetails.movieDetails(Mockito.any())).thenReturn(MovieDetailsResultTO.builder().id(15L).title("Fast and Furious").build());
+        Mockito.when(movieDetails.movieDetails(Mockito.any())).thenReturn(MovieDetailsResultTO.builder().id("id").title("Fast and Furious").build());
     }
 
     @Test
     public void testRateMovie() throws Exception {
         RateMovieRequestTO request = new RateMovieRequestTO(2);
 
-        mvc.perform(MockMvcRequestBuilders.post("/movie/15/rate")
+        mvc.perform(MockMvcRequestBuilders.post("/movie/id/rate")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(JsonUtil.toJson(request))
                 .accept(MediaType.APPLICATION_JSON))
@@ -77,7 +77,7 @@ class CustomerControllerTest {
 
     @Test
     public void testMovieDetails() throws Exception {
-        mvc.perform(get("/movie/15")
+        mvc.perform(get("/movie/id")
                 .contentType(MediaType.APPLICATION_JSON)
                 .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
@@ -86,7 +86,7 @@ class CustomerControllerTest {
 
     @Test
     public void testMovieTime() throws Exception {
-        mvc.perform(get("/movie/15/time")
+        mvc.perform(get("/movie/id/time")
                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("hour", Matchers.is(15)))
